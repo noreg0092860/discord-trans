@@ -74,6 +74,11 @@ const api = {
 const doneCount = () => document.querySelectorAll('.dt-translation[data-dt-state="done"]').length;
 const allCount = () => document.querySelectorAll('.dt-translation').length;
 
+// popup 的設定要等初始化完成（popup.js 在最後標記 dtReady），否則在慢速環境會操作到尚未就緒的表單。
+function popupReady(popup) {
+  return popup.waitForFunction(() => document.body.dataset.dtReady === '1', null, { timeout: 15000 });
+}
+
 function translationOf(page, id) {
   return page.evaluate((n) => {
     const el = document.querySelector('#chat-messages-1-' + n + ' .contents > [id^="message-content-"]');
@@ -105,6 +110,7 @@ async function main() {
   const popup = await context.newPage();
   await popup.setViewportSize({ width: 340, height: 660 });
   await popup.goto(popupUrl);
+  await popupReady(popup);
 
   // 3. popup 設定金鑰與目標語言，再注入測試用 apiBase。
   await step('3. popup 儲存金鑰與 ZH-HANT，注入 apiBase', async () => {
@@ -189,6 +195,7 @@ async function main() {
   // 8. V3d：關開關移除全部譯文；再開由快取回復且請求數不變。
   await step('8. V3d 關開關 → 無譯文；再開 → 由快取回復且請求數不變', async () => {
     await popup.reload();
+    await popupReady(popup);
     await popup.click('#enabledSwitch');
     assert.strictEqual(await popup.$eval('#enabled', (n) => n.checked), false);
     await page.waitForFunction(() => document.querySelectorAll('.dt-translation').length === 0, null, { timeout: 6000 });
@@ -223,6 +230,7 @@ async function main() {
     await page.evaluate(() => window.__fixture.addMessage(41, 'a brand new english line that was never translated before'));
     await waitUntil(async () => (await api.count()) === before + 1, 8000);
     await popup.reload();
+    await popupReady(popup);
     await popup.waitForFunction(() => document.getElementById('statusText').textContent.includes('403'), null, { timeout: 6000 });
     assert.strictEqual(await popup.evaluate(() => chrome.action.getBadgeText({})), '!');
     assert.strictEqual(await translationOf(page, 41), null, '失敗時不留下待翻佔位');
@@ -234,6 +242,7 @@ async function main() {
     await page.evaluate(() => window.__fixture.addMessage(42, 'another unique english line used for the quota test'));
     await waitUntil(async () => (await api.count()) === before + 1, 8000);
     await popup.reload();
+    await popupReady(popup);
     await popup.waitForFunction(() => document.getElementById('statusText').textContent.includes('456'), null, { timeout: 6000 });
     assert.strictEqual(await popup.evaluate(() => chrome.action.getBadgeText({})), '!');
     const afterQuota = await api.count();
@@ -247,6 +256,22 @@ async function main() {
     await popup.click('#clearError');
     await popup.waitForFunction(() => document.getElementById('statusText').textContent === '已儲存 · 正常', null, { timeout: 6000 });
     assert.strictEqual(await popup.evaluate(() => chrome.action.getBadgeText({})), '');
+  });
+
+  // 12. 回歸：popup 一開啟就打字，不得被稍後回來的 storage 舊值覆蓋，且儲存鍵要啟用。
+  //     此競態在 GitHub Actions 的慢速環境重現過（儲存鍵一直是 disabled 導致整輪 E2E 失敗）。
+  await step('12. popup 開啟瞬間輸入不被舊設定覆蓋（不等 dtReady 就輸入）', async () => {
+    await popup.goto(popupUrl);
+    await popup.fill('#apiKey', 'typed-before-ready:fx');
+    await popupReady(popup);
+    assert.strictEqual(
+      await popup.$eval('#apiKey', (n) => n.value),
+      'typed-before-ready:fx',
+      '載入完成後不得覆蓋使用者已輸入的金鑰',
+    );
+    assert.strictEqual(await popup.$eval('#save', (n) => n.disabled), false, '輸入後儲存鍵應啟用');
+    await popup.fill('#apiKey', 'test-key:fx');
+    await popup.click('#save');
   });
 
   // 10d. 回歸（審查 finding）：硬錯誤後失敗的訊息，清除錯誤即自動重譯，不需捲動或編輯。

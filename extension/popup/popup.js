@@ -25,22 +25,32 @@ const el = {
   clearError: document.getElementById('clearError'),
 };
 
+// 使用者是否已在設定載入完成前動過表單；若是，載入結果不得覆蓋他的輸入。
+let touched = false;
+
 load();
 
 async function load() {
+  // 先綁事件再讀 storage：popup 一開啟就打字也不會漏接，更不會被稍後回來的舊值蓋掉。
+  bind();
   const s = await chrome.storage.local.get(DT.DEFAULTS);
+  if (!touched) applySettings(s);
+  syncTwFixAvailability();
+  await refreshStatus();
+  document.body.dataset.dtReady = '1';
+}
+
+function applySettings(s) {
   el.enabled.checked = s.enabled !== false;
   el.apiKey.value = s.apiKey || '';
   el.targetLang.value = s.targetLang || 'ZH-HANT';
   el.twFix.checked = s.twFix !== false;
   setEndpointMode(s.endpointMode || 'auto');
-  syncTwFixAvailability();
-  bind();
-  await refreshStatus();
 }
 
 function bind() {
   el.enabled.addEventListener('change', () => {
+    touched = true;
     chrome.storage.local.set({ enabled: el.enabled.checked });
   });
   el.toggleKey.addEventListener('click', () => {
@@ -75,6 +85,7 @@ function setEndpointMode(mode) {
 }
 
 function markDirty() {
+  touched = true;
   el.save.disabled = false;
 }
 
