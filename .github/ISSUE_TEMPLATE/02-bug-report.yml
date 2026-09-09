@@ -1,0 +1,102 @@
+name: 問題回報
+description: 行為不如預期、譯文有問題、設定畫面異常
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感謝回報。若是「整個頻道都不出現譯文」，請改用「翻譯失效」範本，那份會收集定位所需的診斷資訊。
+
+        **請勿貼出你的 DeepL API 金鑰，也不要貼真實的 Discord 訊息內容、使用者名稱或伺服器邀請連結。**
+        要示範畫面，可用專案內附的仿真頁：`npm run screenshots`。
+        You may write this issue in English.
+
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: 送出前確認
+      options:
+        - label: 我的內容裡沒有 DeepL API 金鑰（含截圖與網路請求內容）
+          required: true
+        - label: 我沒有貼出他人的 Discord 訊息內容、使用者名稱或伺服器邀請連結
+          required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: 發生了什麼
+      description: 一兩句描述實際行為。
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 你預期的行為
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 重現步驟
+      description: 越具體越好。若與特定訊息內容有關，請用你自己造的句子示範，不要貼他人訊息。
+      placeholder: |
+        1. 在 popup 選擇目標語言「日文」
+        2. 按儲存
+        3. 回到 Discord 頻道捲動
+        4. 譯文仍是繁體中文
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: 問題出在哪個部分
+      options:
+        - 譯文內容（翻錯、漏字、混入不該翻的東西）
+        - 譯文顯示（位置、樣式、重複、殘留）
+        - 設定畫面（金鑰、語言、開關、用量）
+        - 額度與錯誤處理（403/456、徽章、重試）
+        - 效能（頁面變慢、耗用資源）
+        - 其他
+    validations:
+      required: true
+
+  - type: textarea
+    id: debug
+    attributes:
+      label: 診斷輸出（可選但很有幫助）
+      description: 在 Discord 分頁的主控台把環境切到「Discord DeepL 翻譯」，執行 `window.__DT_DEBUG()`。
+      render: text
+
+  - type: input
+    id: chrome
+    attributes:
+      label: Chrome 版本
+      placeholder: "141.0.7390.55（正式版本）"
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: 作業系統
+      placeholder: "macOS 27.0 / Windows 11 / Ubuntu 24.04"
+    validations:
+      required: true
+
+  - type: input
+    id: lang
+    attributes:
+      label: 目標語言設定
+      placeholder: "繁體中文（ZH-HANT），台灣用語修正：開"
+
+  - type: checkboxes
+    id: others
+    attributes:
+      label: 環境
+      options:
+        - label: 我同時裝了其他 Discord 翻譯外掛
+        - label: 我用的是 DeepL API Free 金鑰（結尾 `:fx`）

@@ -22,6 +22,7 @@
 - [已知限制](#已知限制)
 - [Discord 改版時的修法](#discord-改版時的修法)
 - [開發](#開發)
+- [貢獻](#貢獻)
 - [授權](#授權)
 
 ## 功能特色
@@ -188,7 +189,19 @@ npm run icons          # 需要時重產圖示（PNG 已附，平常不必跑）
 | `tests/fixtures/discord-like.html` | Discord 仿真 DOM，含回覆引用列重複 id 的情境 |
 | `tests/e2e/` | Playwright 腳本與測試用擴充元件變體產生器 |
 
-歡迎開 issue 或 PR。改動請附上 `npm test` 全綠的結果。
+## 貢獻
+
+歡迎開 issue 或 PR，中英文皆可。開工前請看 [CONTRIBUTING.md](CONTRIBUTING.md)，那裡有開發環境、測試指令，以及四條由 CI 強制執行的安全底線。
+
+回報問題時**請勿貼出你的 DeepL API 金鑰，也不要貼真實的 Discord 訊息內容或使用者名稱**。開 issue 時選對應的範本，會引導你提供需要的診斷資訊：
+
+| 範本 | 用在 |
+|---|---|
+| 翻譯失效 | 原本會翻，現在整個頻道都不出現譯文（多半是 Discord 改版） |
+| 問題回報 | 譯文有問題、顯示異常、設定畫面出錯 |
+| 功能建議 | 新功能或行為調整 |
+
+安全問題（金鑰外流、XSS）請勿開公開 issue，改用 [Security Advisory](https://github.com/noreg0092860/discord-trans/security/advisories/new) 私下回報。
 
 ## 授權
 

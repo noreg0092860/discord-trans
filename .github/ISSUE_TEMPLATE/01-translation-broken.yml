@@ -1,0 +1,95 @@
+name: 翻譯失效（可能是 Discord 改版）
+description: 原本會翻譯，現在整個頻道都不出現譯文
+title: "[失效] "
+labels: ["bug", "discord-change"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        翻譯整片消失時，最常見的原因是 Discord 改版讓錨點失效。
+        下面第一題的診斷輸出對定位幫助最大，請務必提供。
+
+        **請勿貼出你的 DeepL API 金鑰，也不要貼真實的 Discord 訊息內容、使用者名稱或伺服器邀請連結。**
+        You may write this issue in English.
+
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: 送出前確認
+      options:
+        - label: 我的內容裡沒有 DeepL API 金鑰（含截圖與網路請求內容）
+          required: true
+        - label: 我沒有貼出他人的 Discord 訊息內容、使用者名稱或伺服器邀請連結
+          required: true
+
+  - type: textarea
+    id: debug
+    attributes:
+      label: 診斷輸出
+      description: |
+        在 Discord 分頁開 DevTools 主控台，把執行環境從 `top` 切到「Discord DeepL 翻譯」，執行 `window.__DT_DEBUG()`，貼上完整輸出。
+      placeholder: |
+        { tracked: 0, queued: 0, cached: 0, failed: 0, rendered: 0, lastError: null, settings: { enabled: true, targetLang: 'ZH-HANT' } }
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: selector-check
+    attributes:
+      label: 錨點是否還在
+      description: 在同一個主控台執行下面這行，貼上數字。若為 0，表示 Discord 換掉了訊息內文的 id 前綴。
+      placeholder: |
+        document.querySelectorAll('[id^="message-content-"]').length
+        // 例如：0
+      render: text
+    validations:
+      required: true
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: 失效範圍
+      options:
+        - 所有頻道都不翻
+        - 只有某些頻道不翻
+        - 只有部分訊息不翻（例如已編輯、含 emoji、程式碼區塊）
+        - 譯文出現後又消失
+    validations:
+      required: true
+
+  - type: textarea
+    id: which-messages
+    attributes:
+      label: 若只有部分訊息不翻，是哪一類
+      description: 描述那些訊息的共同特徵即可，不用貼原文。例如「含程式碼區塊的訊息」「被回覆引用的訊息」。
+
+  - type: input
+    id: chrome
+    attributes:
+      label: Chrome 版本
+      description: 網址列輸入 `chrome://version` 的第一行。
+      placeholder: "141.0.7390.55（正式版本）"
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: 作業系統
+      placeholder: "macOS 27.0 / Windows 11 / Ubuntu 24.04"
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: 擴充元件版本
+      description: 在 `chrome://extensions` 卡片上可看到；或提供你下載時的 commit。
+      placeholder: "1.0.0"
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: 其他補充
+      description: 例如你是否同時裝了其他 Discord 翻譯外掛、是否剛更新過 Chrome。

@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 安裝、金鑰申請與設定問題
+    url: https://github.com/noreg0092860/discord-trans#取得-deepl-api-金鑰
+    about: 先看 README，多數安裝與 DeepL 金鑰的問題在那裡有答案。
+  - name: Discord 改版後的自行修法
+    url: https://github.com/noreg0092860/discord-trans#discord-改版時的修法
+    about: 想自己動手改錨點，這裡有診斷指令與修改位置。
+  - name: 回報安全問題（請勿開公開 issue）
+    url: https://github.com/noreg0092860/discord-trans/security/advisories/new
+    about: 金鑰外流、XSS 等安全問題請透過 Security Advisory 私下回報。

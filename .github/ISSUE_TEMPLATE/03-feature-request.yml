@@ -1,0 +1,60 @@
+name: 功能建議
+description: 建議新功能或改進現有行為
+title: "[建議] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        歡迎建議。本專案刻意維持小而穩：**執行期零依賴、無建置步驟、權限只有 `storage` 與兩個 DeepL 網域**。
+        會擴大權限或加入執行期依賴的提案，請先在這裡討論再動手實作。
+        You may write this issue in English.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 你想解決什麼問題
+      description: 描述使用時遇到的實際情境，而不是直接描述解法。
+      placeholder: 例如：我同時看兩個不同語言的伺服器，每次都要進 popup 改目標語言。
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 你想到的做法
+      description: 有想法就寫，沒有也可以留空。
+    validations:
+      required: false
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: 涉及範圍
+      options:
+        - 翻譯行為（跳過規則、批次、快取）
+        - 語言與用語（新目標語言、用語修正表）
+        - 設定畫面
+        - 顯示樣式
+        - 開發與測試
+        - 其他
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: 這個提案是否需要突破現有限制
+      description: 勾選任一項不代表不會被接受，只是需要更多討論。
+      options:
+        - label: 需要新增 Chrome 權限或 host 權限
+        - label: 需要加入執行期依賴或建置步驟
+        - label: 需要把資料送到 DeepL 以外的服務
+        - label: 以上皆不需要
+
+  - type: checkboxes
+    id: contribute
+    attributes:
+      label: 參與意願
+      options:
+        - label: 我願意送 PR 實作這個功能
