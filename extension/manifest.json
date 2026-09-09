@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Discord DeepL 翻譯",
+  "version": "1.0.0",
+  "description": "把 Discord 網頁版聊天訊息自動翻成繁體中文（DeepL）",
+  "permissions": ["storage"],
+  "host_permissions": ["https://api.deepl.com/*", "https://api-free.deepl.com/*"],
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [
+    {
+      "matches": ["https://discord.com/*", "https://*.discord.com/*"],
+      "js": ["lib/shared.js", "content/content.js"],
+      "css": ["content/content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": { "16": "icons/icon16.png", "48": "icons/icon48.png", "128": "icons/icon128.png" }
+  },
+  "icons": { "16": "icons/icon16.png", "48": "icons/icon48.png", "128": "icons/icon128.png" }
+}

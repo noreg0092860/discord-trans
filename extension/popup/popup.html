@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!-- popup 版面：金鑰、端點、目標語言、用量與錯誤狀態。 -->
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+<header class="titlebar">
+  <img class="logo" src="../icons/icon48.png" alt="">
+  <h1>Discord DeepL 翻譯</h1>
+  <label class="switch" id="enabledSwitch" title="啟用自動翻譯">
+    <input type="checkbox" id="enabled">
+    <span class="track"></span>
+  </label>
+</header>
+
+<main>
+  <section class="field">
+    <label class="label" for="apiKey">DeepL API 金鑰</label>
+    <div class="row">
+      <input type="password" id="apiKey" autocomplete="off" spellcheck="false" placeholder="貼上金鑰">
+      <button type="button" id="toggleKey" class="ghost">顯示</button>
+    </div>
+    <p class="hint">Free 金鑰以 <code>:fx</code> 結尾，會自動使用 api-free 端點。</p>
+    <a class="link" id="getKey" href="https://www.deepl.com/pro-api" target="_blank" rel="noreferrer">取得金鑰</a>
+  </section>
+
+  <section class="field">
+    <span class="label">端點</span>
+    <div class="radios">
+      <label><input type="radio" name="endpointMode" value="auto" checked><span>自動</span></label>
+      <label><input type="radio" name="endpointMode" value="free"><span>Free</span></label>
+      <label><input type="radio" name="endpointMode" value="pro"><span>Pro</span></label>
+    </div>
+  </section>
+
+  <section class="field">
+    <label class="label" for="targetLang">目標語言</label>
+    <select id="targetLang">
+      <option value="ZH-HANT">繁體中文（ZH-HANT）</option>
+      <option value="ZH-HANS">簡體中文（ZH-HANS）</option>
+      <option value="EN-US">英文（美）（EN-US）</option>
+      <option value="JA">日文（JA）</option>
+      <option value="KO">韓文（KO）</option>
+    </select>
+  </section>
+
+  <section class="field inline">
+    <div>
+      <span class="label">台灣用語修正</span>
+      <p class="hint">陸用語自動改台灣說法（僅繁體中文可用）。</p>
+    </div>
+    <label class="switch small" id="twFixSwitch" title="台灣用語修正">
+      <input type="checkbox" id="twFix">
+      <span class="track"></span>
+    </label>
+  </section>
+
+  <section class="actions">
+    <button type="button" id="save" class="primary" disabled>儲存</button>
+    <button type="button" id="checkUsage" class="secondary">測試金鑰／查看用量</button>
+  </section>
+
+  <section class="usage" id="usageBox" hidden>
+    <p class="usage-text" id="usageText"></p>
+    <div class="meter"><span class="meter-fill" id="usageBar"></span></div>
+  </section>
+
+  <section class="status" id="statusBox">
+    <span class="dot" id="statusDot"></span>
+    <span class="status-text" id="statusText">已儲存 · 正常</span>
+    <button type="button" id="clearError" class="ghost small" hidden>清除錯誤</button>
+  </section>
+
+  <p class="footnote">訊息文字僅送至 DeepL；金鑰只存本機。</p>
+</main>
+
+<script src="../lib/shared.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>

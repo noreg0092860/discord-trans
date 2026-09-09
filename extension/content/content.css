@@ -1,0 +1,20 @@
+/* 譯文樣式：跟隨 Discord CSS 變數並附後備值，不改動 Discord 既有元素。 */
+.dt-translation {
+  margin-top: 2px;
+  padding: 1px 0 1px 8px;
+  border-left: 2px solid var(--brand-500, #5865f2);
+  color: var(--text-muted, #949ba4);
+  font-size: 0.9375rem;
+  line-height: 1.375rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  user-select: text;
+}
+
+.dt-translation[data-dt-state="pending"] {
+  opacity: 0.45;
+}
+
+.dt-translation[data-dt-state="pending"]:empty::before {
+  content: "翻譯中…";
+}

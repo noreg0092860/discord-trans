@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Discord-like fixture</title>
+<style>
+  :root { --text-normal: #dbdee1; --text-muted: #949ba4; --background-primary: #313338; --brand-500: #5865f2; }
+  body { margin: 0; background: #313338; color: #dbdee1; font: 14px/20px system-ui, "Noto Sans TC", sans-serif; }
+  .chat { padding: 8px 16px; }
+  ol[data-list-id="chat-messages"] { list-style: none; margin: 0; padding: 0; }
+  .messageListItem { padding: 2px 0; }
+  .header { margin: 0; font-size: 13px; font-weight: 500; display: inline; }
+  .username { color: #f2f3f5; font-weight: 600; margin-right: 6px; }
+  .timestamp { color: var(--text-muted); font-size: 11px; }
+  .messageContent { margin: 0; }
+  .repliedMessage { color: var(--text-muted); font-size: 12px; opacity: .7; display: flex; gap: 6px; }
+  .repliedTextPreview { color: var(--text-muted); }
+  .emoji { width: 18px; height: 18px; vertical-align: -3px; }
+  .edited_c19a55 { color: var(--text-muted); font-size: 10px; }
+  /* 比照真實 Discord：日期只給螢幕閱讀器，畫面不顯示 */
+  [class*="hiddenVisually"] { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  a { color: #00a8fc; }
+</style>
+</head>
+<body>
+<div class="chat">
+  <ol data-list-id="chat-messages" class="scrollerInner">
+    <li id="chat-messages-1-1" class="messageListItem">
+      <div class="message">
+        <div class="contents">
+          <h3 class="header"><span class="username">bob</span><span class="timestamp">今天 10:01</span></h3>
+          <div id="message-content-1" class="markup messageContent">gm everyone, hope you are having a great week</div>
+        </div>
+      </div>
+    </li>
+    <li id="chat-messages-1-2" class="messageListItem">
+      <div class="message">
+        <div class="contents">
+          <h3 class="header"><span class="username">carol</span><span class="timestamp">今天 10:02</span></h3>
+          <div id="message-content-2" class="markup messageContent">the mint goes live in about two hours</div>
+        </div>
+      </div>
+    </li>
+    <li id="chat-messages-1-3" class="messageListItem">
+      <div class="message">
+        <div class="contents">
+          <h3 class="header"><span class="username">dave</span><span class="timestamp">今天 10:03</span></h3>
+          <div id="message-content-3" class="markup messageContent">did anyone get the whitelist spot yesterday</div>
+        </div>
+      </div>
+    </li>
+    <li id="chat-messages-1-4" class="messageListItem">
+      <div class="message">
+        <div class="contents">
+          <h3 class="header"><span class="username">erin</span><span class="timestamp">今天 10:04</span></h3>
+          <div id="message-content-4" class="markup messageContent">floor price is holding steady around 0.4 today</div>
+        </div>
+      </div>
+    </li>
+    <li id="chat-messages-1-5" class="messageListItem">
+      <div class="message">
+        <div class="contents">
+          <h3 class="header"><span class="username">alice</span><span class="timestamp">今天 10:05</span></h3>
+          <div id="message-content-5" class="markup messageContent">team just posted the roadmap update in announcements</div>
+        </div>
+      </div>
+    </li>
+    <li id="chat-messages-1-6" class="messageListItem">
+      <div class="message">
+        <div class="contents">
+          <h3 class="header"><span class="username">bob</span><span class="timestamp">今天 10:06</span></h3>
+          <div id="message-content-6" class="markup messageContent">I am staking mine until the next snapshot</div>
+        </div>
+      </div>
+    </li>
+    <li id="chat-messages-1-7" class="messageListItem">
+      <div class="message">
+        <div class="contents">
+          <h3 class="header"><span class="username">carol</span><span class="timestamp">今天 10:07</span></h3>
+          <div id="message-content-7" class="markup messageContent">welcome to all the new collectors joining today</div>
+        </div>
+      </div>
+    </li>
+    <li id="chat-messages-1-8" class="messageListItem">
+      <div class="message">
+        <div class="contents">
+          <h3 class="header"><span class="username">dave</span><span class="timestamp">今天 10:08</span></h3>
+          <div id="message-content-8" class="markup messageContent">the art direction on this collection is unreal</div>
+        </div>
+      </div>
+    </li>
+    <li id="chat-messages-1-9" class="messageListItem">
+      <div class="message">
+        <div class="contents">
+          <h3 class="header"><span class="username">erin</span><span class="timestamp">今天 10:09</span></h3>
+          <div id="message-content-9" class="markup messageContent">gas is finally cheap enough to move some pieces</div>
+        </div>
+      </div>
+    </li>
+    <li id="chat-messages-1-10" class="messageListItem">
+      <div class="message">
+        <div class="contents">
+          <h3 class="header"><span class="username">alice</span><span class="timestamp">今天 10:10</span></h3>
+          <div id="message-content-10" class="markup messageContent">reminder that the AMA starts at nine tonight</div>
+        </div>
+      </div>
+    </li>
+    <li id="chat-messages-1-11" class="messageListItem">
+      <div class="message">
+        <div class="contents">
+          <h3 class="header"><span class="username">bob</span><span class="timestamp">今天 10:11</span></h3>
+          <div id="message-content-11" class="markup messageContent">somebody explain the reveal mechanics to me please</div>
+        </div>
+      </div>
+    </li>
+    <li id="chat-messages-1-12" class="messageListItem">
+      <div class="message">
+        <div class="contents">
+          <h3 class="header"><span class="username">carol</span><span class="timestamp">今天 10:12</span></h3>
+          <div id="message-content-12" class="markup messageContent">just listed two of mine at slightly below floor</div>
+        </div>
+      </div>
+    </li>
+    <li id="chat-messages-1-13" class="messageListItem">
+      <div class="message">
+        <div class="contents">
+          <h3 class="header"><span class="username">dave</span><span class="timestamp">今天 10:13</span></h3>
+          <div id="message-content-13" class="markup messageContent">the discord bot keeps eating my verification message</div>
+        </div>
+      </div>
+    </li>
+    <li id="chat-messages-1-14" class="messageListItem">
+      <div class="message">
+        <div class="contents">
+          <h3 class="header"><span class="username">erin</span><span class="timestamp">今天 10:14</span></h3>
+          <div id="message-content-14" class="markup messageContent">congrats to whoever pulled the rare background</div>
+        </div>
+      </div>
+    </li>
+    <li id="chat-messages-1-15" class="messageListItem">
+      <div class="message">
+        <div class="contents">
+          <h3 class="header"><span class="username">alice</span><span class="timestamp">今天 10:15</span></h3>
+          <div id="message-content-15" class="markup messageContent">second wave of the drop is scheduled for friday</div>
+        </div>
+      </div>
+    </li>
+    <li id="chat-messages-1-16" class="messageListItem">
+      <div class="message">
+        <div class="contents">
+          <h3 class="header"><span class="username">bob</span><span class="timestamp">今天 10:16</span></h3>
+          <div id="message-content-16" class="markup messageContent">does the royalty split apply on secondary sales</div>
+        </div>
+      </div>
+    </li>
+    <li id="chat-messages-1-17" class="messageListItem">
+      <div class="message">
+        <div class="contents">
+          <h3 class="header"><span class="username">carol</span><span class="timestamp">今天 10:17</span></h3>
+          <div id="message-content-17" class="markup messageContent">thanks for the quick answer earlier, much appreciated</div>
+        </div>
+      </div>
+    </li>
+    <li id="chat-messages-1-18" class="messageListItem">
+      <div class="message">
+        <div class="contents">
+          <h3 class="header"><span class="username">bob</span><span class="timestamp">今天 10:18</span></h3>
+          <div id="message-content-18" class="markup messageContent">this reveal is wild <img class="emoji" data-type="emoji" data-name=":rofl:" alt="🤣" src="/assets/rofl.svg"><img class="emoji" data-type="emoji" data-name=":pepe:" alt=":pepe:" src="https://cdn.discordapp.com/emojis/1.png"> and I am not even mad <span class="timestamp_c19a55"><span><time datetime="2026-09-09T18:30:19.653Z"><span class="edited_c19a55">(已編輯)</span></time></span><span class="hiddenVisually_b18fe2">2026年9月10日 星期四 凌晨2:30</span></span></div>
+        </div>
+      </div>
+    </li>
+    <li id="chat-messages-1-19" class="messageListItem">
+      <div class="message">
+        <div class="contents">
+          <h3 class="header"><span class="username">carol</span><span class="timestamp">今天 10:19</span></h3>
+          <div id="message-content-19" class="markup messageContent"><span class="mention wrapper_abc interactive" role="button">@alice</span> the listing is here <a href="https://example.com/collection/demo">https://example.com/collection/demo</a> take a look</div>
+        </div>
+      </div>
+    </li>
+    <li id="chat-messages-1-20" class="messageListItem">
+      <div class="message">
+        <div id="message-reply-context-20" class="repliedMessage">
+          <span class="username">carol</span>
+          <div id="message-content-3" class="markup messageContent repliedTextPreview">did anyone get the whitelist spot yesterday</div>
+        </div>
+        <div class="contents">
+          <h3 class="header"><span class="username">dave</span><span class="timestamp">今天 10:20</span></h3>
+          <div id="message-content-20" class="markup messageContent">yes I grabbed one right before it closed</div>
+        </div>
+      </div>
+    </li>
+    <li id="chat-messages-1-21" class="messageListItem">
+      <div class="message">
+        <div class="contents">
+          <h3 class="header"><span class="username">erin</span><span class="timestamp">今天 10:21</span></h3>
+          <div id="message-content-21" class="markup messageContent">今天天氣很好</div>
+        </div>
+      </div>
+    </li>
+    <li id="chat-messages-1-22" class="messageListItem">
+      <div class="message">
+        <div class="contents">
+          <h3 class="header"><span class="username">alice</span><span class="timestamp">今天 10:22</span></h3>
+          <div id="message-content-22" class="markup messageContent"><img class="emoji" data-type="emoji" data-name=":fire:" alt="🔥" src="/assets/fire.svg"><img class="emoji" data-type="emoji" data-name=":rocket:" alt="🚀" src="/assets/rocket.svg"></div>
+        </div>
+      </div>
+    </li>
+    <li id="chat-messages-1-23" class="messageListItem">
+      <div class="message">
+        <div class="contents">
+          <h3 class="header"><span class="username">bob</span><span class="timestamp">今天 10:23</span></h3>
+          <div id="message-content-23" class="markup messageContent"><a href="https://discord.gg/example">https://discord.gg/example</a></div>
+        </div>
+      </div>
+    </li>
+    <li id="chat-messages-1-24" class="messageListItem">
+      <div class="message">
+        <div class="contents">
+          <h3 class="header"><span class="username">carol</span><span class="timestamp">今天 10:24</span></h3>
+          <div id="message-content-24" class="markup messageContent"><span class="mention wrapper_abc interactive" role="button">@alice</span> <span class="mention wrapper_abc interactive" role="button">@dave</span></div>
+        </div>
+      </div>
+    </li>
+  </ol>
+</div>
+<script>
+(function () {
+  function list() { return document.querySelector('[data-list-id="chat-messages"]'); }
+  function build(id, inner, author) {
+    var li = document.createElement('li');
+    li.id = 'chat-messages-1-' + id;
+    li.className = 'messageListItem';
+    li.innerHTML =
+      '<div class="message"><div class="contents">' +
+      '<h3 class="header"><span class="username">' + (author || 'alice') + '</span>' +
+      '<span class="timestamp">今天 11:00</span></h3>' +
+      '<div id="message-content-' + id + '" class="markup messageContent"></div>' +
+      '</div></div>';
+    li.querySelector('[id^="message-content-"]').innerHTML = inner;
+    return li;
+  }
+  window.__fixture = {
+    addMessage: function (id, inner, author) { list().appendChild(build(id, inner, author)); return id; },
+    editMessage: function (id, inner) {
+      var el = document.querySelector('#chat-messages-1-' + id + ' .contents > [id^="message-content-"]');
+      if (el) el.innerHTML = inner;
+      return Boolean(el);
+    },
+    replaceList: function (texts) {
+      var old = list();
+      var ol = document.createElement('ol');
+      ol.setAttribute('data-list-id', 'chat-messages');
+      ol.className = 'scrollerInner';
+      (texts || []).forEach(function (t, i) { ol.appendChild(build(String(900 + i), t, 'newchannel')); });
+      old.parentNode.replaceChild(ol, old);
+      return ol.children.length;
+    },
+    countTranslations: function () { return document.querySelectorAll('.dt-translation').length; }
+  };
+})();
+</script>
+</body>
+</html>

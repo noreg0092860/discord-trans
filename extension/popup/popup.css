@@ -1,0 +1,177 @@
+/* popup 視覺：Discord 原生深色語彙（PLAN §A.6 Others）。 */
+:root {
+  --bg: #313338;
+  --bg-input: #1e1f22;
+  --bg-raised: #2b2d31;
+  --text: #dbdee1;
+  --text-muted: #949ba4;
+  --brand: #5865f2;
+  --brand-hover: #4752c4;
+  --danger: #ed4245;
+  --warn: #f0b232;
+  --ok: #23a55a;
+  --border: #3f4147;
+  --radius: 8px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  width: 340px;
+  margin: 0;
+  padding: 0 0 14px;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.45 system-ui, "Noto Sans TC", sans-serif;
+}
+
+.titlebar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.titlebar .logo { width: 22px; height: 22px; border-radius: 6px; }
+
+.titlebar h1 {
+  flex: 1;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+main { padding: 14px 14px 0; display: flex; flex-direction: column; gap: 14px; }
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+
+.field.inline { flex-direction: row; align-items: center; justify-content: space-between; gap: 10px; }
+
+.label { font-size: 12px; font-weight: 700; letter-spacing: 0.4px; color: var(--text-muted); text-transform: uppercase; }
+
+.hint { margin: 0; font-size: 11.5px; color: var(--text-muted); }
+
+.hint code { background: var(--bg-input); border-radius: 4px; padding: 0 4px; font-size: 11px; }
+
+.link { font-size: 12px; color: #00a8fc; text-decoration: none; width: fit-content; }
+.link:hover { text-decoration: underline; }
+
+.row { display: flex; gap: 6px; }
+
+input[type="password"], input[type="text"], select {
+  flex: 1;
+  min-width: 0;
+  height: 34px;
+  padding: 0 10px;
+  background: var(--bg-input);
+  color: var(--text);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  font: inherit;
+  font-size: 13px;
+}
+
+input:focus, select:focus { outline: none; border-color: var(--brand); }
+
+select {
+  appearance: none; cursor: pointer; padding-right: 30px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' fill='none' stroke='%23949ba4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat; background-position: right 12px center;
+}
+
+.radios { display: flex; gap: 6px; }
+
+.radios label {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  background: var(--bg-input);
+  border-radius: var(--radius);
+  font-size: 13px;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.radios input { position: absolute; opacity: 0; pointer-events: none; }
+.radios label:has(input:checked) { background: var(--brand); color: #fff; font-weight: 600; }
+
+.switch { position: relative; display: inline-block; width: 40px; height: 24px; flex: none; cursor: pointer; }
+.switch.small { width: 34px; height: 20px; }
+.switch input { position: absolute; opacity: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+
+.switch .track {
+  position: absolute;
+  inset: 0;
+  background: #80848e;
+  border-radius: 999px;
+  transition: background 120ms ease;
+}
+
+.switch .track::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 120ms ease;
+}
+
+.switch.small .track::after { width: 14px; height: 14px; }
+.switch input:checked + .track { background: var(--ok); }
+.switch input:checked + .track::after { transform: translateX(16px); }
+.switch.small input:checked + .track::after { transform: translateX(14px); }
+.switch input:disabled + .track { opacity: 0.4; cursor: not-allowed; }
+
+.actions { display: flex; gap: 8px; }
+
+button {
+  height: 34px;
+  padding: 0 12px;
+  border: none;
+  border-radius: var(--radius);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+button.primary { background: var(--brand); color: #fff; font-weight: 600; min-width: 84px; }
+button.primary:hover:not(:disabled) { background: var(--brand-hover); }
+button.primary:disabled { opacity: 0.45; cursor: default; }
+
+button.secondary { flex: 1; background: var(--bg-raised); color: var(--text); border: 1px solid var(--border); }
+button.secondary:hover { background: #35373c; }
+
+button.ghost { background: transparent; color: var(--text-muted); text-decoration: underline; padding: 0 6px; }
+button.ghost:hover { color: var(--text); }
+button.ghost.small { height: 20px; font-size: 11.5px; }
+
+.usage { display: flex; flex-direction: column; gap: 6px; }
+.usage-text { margin: 0; font-size: 12.5px; color: var(--text); }
+
+.meter { height: 6px; background: var(--bg-input); border-radius: 999px; overflow: hidden; }
+.meter-fill { display: block; height: 100%; width: 0; background: var(--brand); border-radius: 999px; transition: width 200ms ease; }
+.meter-fill.warn { background: var(--warn); }
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 10px;
+  background: var(--bg-raised);
+  border-radius: var(--radius);
+  font-size: 12.5px;
+}
+
+.status .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); flex: none; }
+.status.error .dot { background: var(--danger); }
+.status.error .status-text { color: var(--danger); }
+.status-text { flex: 1; }
+
+.footnote { margin: 0; font-size: 11px; color: var(--text-muted); text-align: center; }

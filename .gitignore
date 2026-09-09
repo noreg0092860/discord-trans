@@ -1,0 +1,22 @@
+# 依賴與建置產物
+node_modules/
+.test-ext/
+tests/e2e/out/
+
+# 開發過程的私人筆記／內部文件（不隨專案發布）
+docs/
+CLAUDE.md
+.claude/
+
+# 作業系統與編輯器
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# 環境變數與金鑰（本專案不需要，仍設防線）
+.env
+.env.*
+*.key
+secrets*.json
