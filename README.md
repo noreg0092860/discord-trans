@@ -2,6 +2,7 @@
 
 用 DeepL 把 Discord 網頁版的聊天訊息自動翻成繁體中文，譯文顯示在原文下方。Chrome 擴充元件（Manifest V3），純 Vanilla JS、零建置、執行期零依賴。
 
+[![tests](https://github.com/noreg0092860/discord-trans/actions/workflows/tests.yml/badge.svg)](https://github.com/noreg0092860/discord-trans/actions/workflows/tests.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 ![Manifest V3](https://img.shields.io/badge/Chrome-Manifest%20V3-5865f2)
 ![No build step](https://img.shields.io/badge/build-none-3ba55c)
@@ -159,14 +160,17 @@ DeepL 如何處理送出的文字，適用 DeepL 自己的隱私政策，請自�
 
 ```bash
 PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install   # 只裝 playwright 1.60.0（devDependency）
+npm run check          # 靜態不變量檢查（語法、manifest 權限、金鑰邊界、錨點規則）
 npm run test:unit      # node:test 單元測試（零依賴）
 npm run test:e2e       # Playwright 實際載入擴充元件 + mock DeepL + Discord 仿真頁
-npm test               # 兩者依序跑
+npm test               # 上述三者依序跑
 npm run screenshots    # 重新產生 README 截圖
 npm run icons          # 需要時重產圖示（PNG 已附，平常不必跑）
 ```
 
-測試不需要真實 DeepL 金鑰，全程對本機 mock 伺服器跑。
+需要 Node 22 以上。測試不需要真實 DeepL 金鑰，全程對本機 mock 伺服器跑。
+
+每次 push 與 PR 都會在 GitHub Actions 跑上述檢查（單元測試同時測 Node 22 與 24），設定在 `.github/workflows/tests.yml`。`npm run check` 會擋下幾條專案的安全底線：content script 不得讀取金鑰值或直接連網、不得以 HTML 字串寫入譯文、選擇器不得使用會變動的 Discord hash class、manifest 權限不得擴張。
 
 | 路徑 | 用途 |
 |---|---|
@@ -178,6 +182,7 @@ npm run icons          # 需要時重產圖示（PNG 已附，平常不必跑）
 | `extension/popup/` | 設定介面（Discord 深色語彙） |
 | `scripts/make_icons.py` | 用 PIL 產生 16/48/128 圖示 |
 | `scripts/make-screenshots.js` | 產生 README 截圖 |
+| `scripts/check-invariants.js` | 靜態不變量檢查（CI 與本機共用） |
 | `tests/unit/` | `node:test` 單元測試與最小 DOM stub |
 | `tests/mock-deepl.js` | 假 DeepL 伺服器（可切 403/456/429 錯誤模式、記錄請求數） |
 | `tests/fixtures/discord-like.html` | Discord 仿真 DOM，含回覆引用列重複 id 的情境 |

@@ -21,8 +21,12 @@
     "manifest-v3",
     "traditional-chinese"
   ],
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
-    "test": "npm run test:unit && npm run test:e2e",
+    "check": "node scripts/check-invariants.js",
+    "test": "npm run check && npm run test:unit && npm run test:e2e",
     "test:unit": "node --test \"tests/unit/*.test.js\"",
     "test:e2e": "node tests/e2e/run.js",
     "icons": "python3 scripts/make_icons.py",
